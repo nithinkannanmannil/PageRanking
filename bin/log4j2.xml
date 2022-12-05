@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG">
+    <Appenders>
+		<RollingRandomAccessFile name="RollingRandomAccessFile" fileName="log.txt" filePattern="logs/$${date:yyyy-MM}/log-%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%d %5p %c [%t] %m%n</Pattern>
+			</PatternLayout>     
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="10 MB"/>
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+		</RollingRandomAccessFile>
+    </Appenders>
+	
+    <Loggers>
+        <!-- avoid duplicated logs with additivity=false -->
+        <Logger name="com.pageranking.pkg" additivity="false">
+            <AppenderRef ref="RollingRandomAccessFile"/>
+        </Logger>
+        <Logger name="exceptions.pageranking" additivity="false">
+            <AppenderRef ref="RollingRandomAccessFile"/>
+        </Logger>
+        <Root level="debug">
+            <AppenderRef ref="RollingRandomAccessFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
+
